@@ -9,23 +9,23 @@
   <meta name="description" content="11.12Day1｜2025-11-12｜Transformer前世今生预训练→ 统计语言模型→神经语言模型（NNLM）→ word2vec →emlo(使用LSTM获取上下文信息) 预训练将及其相似架构的模型  浅层参数复用 假设分类模型 A   基于10000张数据训练 模型B 只有100张数据 可以利用A的浅层网络的参数继续训练 分为 冻结 和 微调冻结不改变原有参数    微调利用B的数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="&#39;transformer1&#39;">
-<meta property="og:url" content="http://example.com/2025/11/12/transformer1/11%2012%202a91ea36e8d780af81a4d3663e3b0e9b/index.html">
+<meta property="og:url" content="http://example.com/2025/11/12/transformer1/index.html">
 <meta property="og:site_name" content="学习小站">
 <meta property="og:description" content="11.12Day1｜2025-11-12｜Transformer前世今生预训练→ 统计语言模型→神经语言模型（NNLM）→ word2vec →emlo(使用LSTM获取上下文信息) 预训练将及其相似架构的模型  浅层参数复用 假设分类模型 A   基于10000张数据训练 模型B 只有100张数据 可以利用A的浅层网络的参数继续训练 分为 冻结 和 微调冻结不改变原有参数    微调利用B的数据">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/image.png">
-<meta property="og:image" content="http://example.com/image%201.png">
-<meta property="og:image" content="http://example.com/image%202.png">
-<meta property="og:image" content="http://example.com/image%203.png">
-<meta property="og:image" content="http://example.com/image%204.png">
-<meta property="og:image" content="http://example.com/image%205.png">
-<meta property="og:image" content="http://example.com/image%206.png">
+<meta property="og:image" content="http://example.com/.com//image.png">
+<meta property="og:image" content="http://example.com/.com//image%201.png">
+<meta property="og:image" content="http://example.com/.com//image%202.png">
+<meta property="og:image" content="http://example.com/.com//image%203.png">
+<meta property="og:image" content="http://example.com/.com//image%204.png">
+<meta property="og:image" content="http://example.com/.com//image%205.png">
+<meta property="og:image" content="http://example.com/.com//image%206.png">
 <meta property="article:published_time" content="2025-11-12T13:52:45.000Z">
-<meta property="article:modified_time" content="2025-11-14T14:10:08.042Z">
+<meta property="article:modified_time" content="2025-11-14T14:21:02.628Z">
 <meta property="article:author" content="Qsh">
 <meta property="article:tag" content="LLM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/image.png">
+<meta name="twitter:image" content="http://example.com/.com//image.png">
   
     <link rel="alternate" href="/atom.xml" title="学习小站" type="application/atom+xml">
   
@@ -82,9 +82,9 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-transformer1/11 12 2a91ea36e8d780af81a4d3663e3b0e9b" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-transformer1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/11/12/transformer1/11%2012%202a91ea36e8d780af81a4d3663e3b0e9b/" class="article-date">
+    <a href="/2025/11/12/transformer1/" class="article-date">
   <time class="dt-published" datetime="2025-11-12T13:52:45.000Z" itemprop="datePublished">2025-11-12</time>
 </a>
     
@@ -112,18 +112,18 @@
 <p>微调用的最多</p>
 <h3 id="统计语言模型"><a href="#统计语言模型" class="headerlink" title="统计语言模型"></a>统计语言模型</h3><p>语言模型的两个主要问题：计算一句话的概率 计算下一个单词可能是什么</p>
 <p>统计+语言模型 本质上是条件概率，也就链式法则  去处理语言（人说的话）+模型（去完成两个任务）<br>不过首先要将句子拆分为一个一个的单词</p>
-<p><img src="/image.png" alt="image.png"></p>
+<p><img src="/.com//image.png" alt="image.png"></p>
 <p>又可以拆分为两个示例： 一个是预测  一个是判断<br>预测一句话后面的词是什么： 你今天要去___</p>
 <p>判断这个句子对不对： P(”你今天要去上班”)  和 P(”你今天要去火锅”)  哪一个概率大</p>
 <p>条件概率公式如下 ，count 就是统计的信息 出现次数</p>
-<p><img src="/image%201.png" alt="image.png"></p>
+<p><img src="/.com//image%201.png" alt="image.png"></p>
 <p>n元统计语言模型（马尔科夫链）</p>
 <p>正常一句话可能包括很多个单词   但是往往不需要很多的单词就可以判断出很多单词的概率<br>比如二元就是取两个词    上面的两句话分别可以近似 P(上班 | 去) 和  P(火锅 | 去)</p>
 <p>平滑策略<br>当分母的count() 为0，也就是分母为零时无意义 所以公式相对进行了处理，分子分母都加入不为0的正数，如下</p>
-<p><img src="/image%202.png" alt="image.png"></p>
+<p><img src="/.com//image%202.png" alt="image.png"></p>
 <h3 id="神经网络语言模型（独热编码-词向量-Word-Embedding-的起源）"><a href="#神经网络语言模型（独热编码-词向量-Word-Embedding-的起源）" class="headerlink" title="神经网络语言模型（独热编码+词向量 Word Embedding 的起源）"></a>神经网络语言模型（<strong>独热编码+词向量 Word Embedding 的起源</strong>）</h3><p>用神经网络解决语言模型的两个问题</p>
 <p>一开始解决 “预测下一个单词是什么”这一个系列的问题。   可以用一个最简单的感知机来处理</p>
-<p><img src="/image%203.png" alt="image.png"></p>
+<p><img src="/.com//image%203.png" alt="image.png"></p>
 <p>简单描述：</p>
 <ol>
 <li><p>假设其中输入为w1-w4，这里w1-w4指的是将单词进行独热编码</p>
@@ -143,7 +143,7 @@
 <p>得到词向量 词向量的维度 可以由Q矩阵控制<br>大大减小 由于独热编码带来的数据矩阵过大的问题</p>
 <p>得到了词向量（副产品） 还可以根据词向量去计算单词之间的相关性  从而用n元统计的方式 预测下一个单词对不对（也叫做下游任务）</p>
 <h3 id="word2vec模型"><a href="#word2vec模型" class="headerlink" title="word2vec模型"></a>word2vec模型</h3><p>模型直接为词向量服务 ，只为了得到词向量</p>
-<p><img src="/image%204.png" alt="image.png"></p>
+<p><img src="/.com//image%204.png" alt="image.png"></p>
 <p>分两大类：</p>
 <p>cbow: 一个老师 多个学生去学习Q矩阵  （给出上下文词，预测<strong>中间词</strong>）</p>
 <p>skip-gram: 多个老师 一个学生 去学习Q矩阵 （给出中间词，预测<strong>上下文词</strong>）</p>
@@ -153,11 +153,11 @@
 <p>缺点：无法有效区分多义词  多义词编码一致</p>
 <h2 id="预训练语言模型的下游任务改造（简介）"><a href="#预训练语言模型的下游任务改造（简介）" class="headerlink" title="预训练语言模型的下游任务改造（简介）"></a>预训练语言模型的下游任务改造（简介）</h2><p>word2vec是一个预训练模型</p>
 <p>现在处理一个问题 X(Q+S) ，给出一个回答Y(yes)</p>
-<p><img src="/image%205.png" alt="image.png"></p>
+<p><img src="/.com//image%205.png" alt="image.png"></p>
 <p>该模型的 embedding 实际上就可以用预训练好的word2vec模型带入 ，带入预训练好的Q矩阵得到词向量</p>
 <p>有两种方法 </p>
 <p>1.冻结 不改变Q矩阵<br>2.微调 随着任务的改变 进行Q矩阵的改变</p>
-<h3 id="ELMO模型（双向LSTM模型-解决词向量多义词问题）"><a href="#ELMO模型（双向LSTM模型-解决词向量多义词问题）" class="headerlink" title="ELMO模型（双向LSTM模型 解决词向量多义词问题）"></a>ELMO模型（双向LSTM模型 解决词向量多义词问题）</h3><p><img src="/image%206.png" alt="image.png"></p>
+<h3 id="ELMO模型（双向LSTM模型-解决词向量多义词问题）"><a href="#ELMO模型（双向LSTM模型-解决词向量多义词问题）" class="headerlink" title="ELMO模型（双向LSTM模型 解决词向量多义词问题）"></a>ELMO模型（双向LSTM模型 解决词向量多义词问题）</h3><p><img src="/.com//image%206.png" alt="image.png"></p>
 <p>模型使用双向lstm来获取上下文信息，E1+E2+E3层的信息融合。原有word2vec只考虑E1层，现在使用lstm传递 上下文信息，</p>
 <p>结果T1-TN 结果为词向量信息</p>
 <p>lstm相比rnn可以保持梯度不消失问题，时间序列上逐步迭代，但是无法并行，长期依赖。</p>
@@ -165,7 +165,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/11/12/transformer1/11%2012%202a91ea36e8d780af81a4d3663e3b0e9b/" data-id="cuidXjto7bVFu8mBkQKoh--nZ" data-title="&#39;transformer1&#39;" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/11/12/transformer1/" data-id="cuid0EcK0gVcC1tI0gmbp2rK3" data-title="&#39;transformer1&#39;" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -240,7 +240,7 @@
           </li>
         
           <li>
-            <a href="/2025/11/12/transformer1/11%2012%202a91ea36e8d780af81a4d3663e3b0e9b/">&#39;transformer1&#39;</a>
+            <a href="/2025/11/12/transformer1/">&#39;transformer1&#39;</a>
           </li>
         
       </ul>

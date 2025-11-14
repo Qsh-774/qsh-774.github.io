@@ -95,48 +95,48 @@
       
         <h1 id="11-13"><a href="#11-13" class="headerlink" title="11.13"></a>11.13</h1><h3 id="Day2｜2025-11-13｜Transformer前世今生"><a href="#Day2｜2025-11-13｜Transformer前世今生" class="headerlink" title="Day2｜2025-11-13｜Transformer前世今生"></a>Day2｜2025-11-13｜Transformer前世今生</h3><p>注意力机制→ 自注意力机制→交叉注意力机制-掩码注意力机制→多头注意力机制→transformer架构→encoder+decoders结构（过程中穿插 softmax函数 前馈全连接层（feed forward+linear） 以及LN 和 BN 计算方差均值进行归一化 以及残差网络的作用等）</p>
 <h3 id="注意力机制Attention"><a href="#注意力机制Attention" class="headerlink" title="注意力机制Attention"></a>注意力机制Attention</h3><p>是什么？</p>
-<p><img src="/./transformer2/image.png" alt="image.png"></p>
+<p><img src="/.com//image.png" alt="image.png"></p>
 <p>人类在查看一个图片时，重点关注的地方为红色部分。深度学习的注意力机制就类似这个过程。</p>
 <p>就是为了从大量信息中提取少量的重要信息。</p>
 <p>注意力机制将一个词或者一个物 分为了两部分分别是key和value value就是被查询者自己本身，key是提取的关键特征</p>
 <p>Q是需要查询的东西</p>
 <p>查询对象（我），被查询对象（图片中的所有内容）。我将计算图片中各个区域的重要程度。</p>
 <p>注意力机制中 使用点积去计算相似度（相关性），也就是我想找的 和 被查找的 两者之间的相关性</p>
-<p><img src="/image%201.png" alt="image.png"></p>
+<p><img src="/.com//image%201.png" alt="image.png"></p>
 <p>针对每一个k 和 Q进行点积计算， 计算完之后得到一组相似度s。再用softmax(s1,s2,s3—-)就可以得到概率a。  a中就是每一个词的相似度概率。</p>
 <p> （a1,a2,a3—-）<em>+(v1,v2,v3—-) &#x3D; (a1</em>v1+ a2<em>v2+a3</em>v3——)&#x3D;V’</p>
 <p>V经过上面的加权处理后，V’就包括了Q和K的相似度信息。一般来说 K&#x3D;V,或者K包含了V的某些信息。V’也就是attention向量</p>
-<p><img src="/image%202.png" alt="image.png"></p>
+<p><img src="/.com//image%202.png" alt="image.png"></p>
 <h3 id="softmax的小问题"><a href="#softmax的小问题" class="headerlink" title="softmax的小问题"></a>softmax的小问题</h3><p>softmax（51，49）  &#x3D;  （0.51，0.49）</p>
 <p>softmax（80，20）  &#x3D;  （0.9999，0.0001）</p>
 <p>a1,a2之间差的越多 ，概率差会被进一步放大</p>
-<p><img src="/image%203.png" alt="image.png"></p>
+<p><img src="/.com//image%203.png" alt="image.png"></p>
 <p>下图是 QK相乘 然后用scale缩放一下范围 避免相差过大 softmax出现极端概率</p>
 <p>然后 softmax得到概率 也可以说是 q对k的相关概率？</p>
 <p>最终   和 V相乘得到 新的向量，新的向量中可以表示 K和V（广义上说 k，v代表的意思相同），这种表示方式还涵括了Q的信息，提取了对于Q来说  （ K里面最重要的信息）。</p>
-<p><img src="/image%204.png" alt="image.png"></p>
+<p><img src="/.com//image%204.png" alt="image.png"></p>
 <h3 id="自-注意力机制（self-attention）"><a href="#自-注意力机制（self-attention）" class="headerlink" title="自-注意力机制（self-attention）"></a>自-注意力机制（self-attention）</h3><p>第一步 获取QKV,通过对X进行线性变化得到 </p>
 <p>用X1 X2分别与Wq,Wk, Wv点乘得到q k v 向量 矩阵Q为q1 q2的拼接，K V也同理</p>
 <p>X可以为单词的单独编码值  可以为one-hot 可以为word2vec等</p>
-<p><img src="/image%205.png" alt="image.png"></p>
+<p><img src="/.com//image%205.png" alt="image.png"></p>
 <p>第二步：matmul</p>
 <p>q1<em>k1  q1</em>k2分别得到得分 112 和 96</p>
-<p><img src="/image%206.png" alt="image.png"></p>
+<p><img src="/.com//image%206.png" alt="image.png"></p>
 <p>第三步：scale+ softmax</p>
 <p>scale 为了防止得分差距过大，出现极端情况</p>
 <p>softmax 进行评分，得出相似概率</p>
-<p><img src="/image%207.png" alt="image.png"></p>
+<p><img src="/.com//image%207.png" alt="image.png"></p>
 <p>第四步： matmul</p>
 <p>将之前计算的相似概率分别和V1 V2进行点乘 然后求和 可以得到一个新的 包含其他单词信息的词向量，但是这里主要的内容还是自己 但是会包含其他单词 比如machines的信息</p>
 <p>拼接z1 z2可以得到attention值Z</p>
-<p><img src="/image%208.png" alt="image.png"></p>
+<p><img src="/.com//image%208.png" alt="image.png"></p>
 <p>下面为QKV矩阵的计算过程</p>
-<p><img src="/image%209.png" alt="image.png"></p>
+<p><img src="/.com//image%209.png" alt="image.png"></p>
 <p>总体公式表达为</p>
-<p><img src="/image%2010.png" alt="image.png"></p>
+<p><img src="/.com//image%2010.png" alt="image.png"></p>
 <p>计算过程为复杂度为O（n^2）,每一个单词都要对其他的每一个单词都计算一个权重</p>
-<p><img src="/image%2011.png" alt="image.png"></p>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="注意力机制和自注意力机制的不同"><a href="#注意力机制和自注意力机制的不同" class="headerlink" title="注意力机制和自注意力机制的不同"></a>注意力机制和自注意力机制的不同</h3><p>注意力机制中QKV不区分来源 （K和V近似  但是也可以不同）   范围较大 </p>
+<p><img src="/.com//image%2011.png" alt="image.png"></p>
+<h3 id><a href="#" class="headerlink" title></a></h3><h3 id="注意力机制和自注意力机制的不同"><a href="#注意力机制和自注意力机制的不同" class="headerlink" title="注意力机制和自注意力机制的不同"></a>注意力机制和自注意力机制的不同</h3><p>注意力机制中QKV不区分来源 （K和V近似  但是也可以不同）   范围较大 </p>
 <p>自注意力机制QKV同源来自同一个X。 Q会查询自己 也会查询别人  self主要体现在每一个单词都要查询每一个单词。</p>
 <h2 id="单词编码-小总结"><a href="#单词编码-小总结" class="headerlink" title="单词编码-小总结"></a>单词编码-小总结</h2><p>NNLM 依赖上文预测下文，副产品提出了一种编码思路</p>
 <p>Word2vec  CBOW专门使用一个句子 使用上下文来预测一个单词   提出降维的效果(专用性)<br>模型结构相对更简单  主要目标计算得到Q矩阵 不关注输出的准确性 一个单词一个向量<br>但是只能使用一个句子   在不同句子中的多义词的含义无法包含进去<br>最终结果类似查表 实际上就是Q矩阵的不同列 同一个单词占用的是同一行的参数空间 无法区分多义词</p>
@@ -152,7 +152,7 @@
 <p>多头的个数用h表示，一般h＝8 ，8头自注意力机制</p>
 <p>步骤一：</p>
 <p>对于x得到的 Q K V矩阵分为8块，QKV矩阵每一个维度都包括了X的特征，将QKV分为8块，实现在8个不同的子空间（对应8中不同的语法结构）</p>
-<p><img src="/image%2012.png" alt="image.png"></p>
+<p><img src="/.com//image%2012.png" alt="image.png"></p>
 <p>步骤二：</p>
 <p>将8各不同子空间得到的信息拼接起来，将低维度的向量 拼接为高维度 </p>
 <h2 id="机器学习本质"><a href="#机器学习本质" class="headerlink" title="机器学习本质"></a>机器学习本质</h2><p>实现y&#x3D;σ(wx+b)，在使用非线性变换 通过训练模型，将一个不合理的参数 来使得表达式变得合理</p>
@@ -166,7 +166,7 @@
 <h3 id="位置编码对于self-Attention作用"><a href="#位置编码对于self-Attention作用" class="headerlink" title="位置编码对于self-Attention作用"></a>位置编码对于self-Attention作用</h3><p>Attention 优点：解决长依赖问题 和 可以并行计算</p>
 <p>缺点：缺失顺序性 打乱一个句子得到的结果是一样的 不带有 位置信息</p>
 <p>加入位置编码 来解决这个问题（位置编码不是可学习参数，它是固定值）</p>
-<p><img src="/image%2013.png" alt="image.png"></p>
+<p><img src="/.com//image%2013.png" alt="image.png"></p>
 <p>假设词向量512维（常用） </p>
 <ol>
 <li>传统的1 - N 位置编码 不是一个连续空间的表达 但是这样不利于模型泛化 参数还可能爆炸</li>
@@ -174,38 +174,38 @@
 <li>使用[sin(wi*t)] wi和维度有关 t是位置  这样可以在[0-1]范围内  实现位置的定义 但是无法计算相对位置，<strong>不同的位置向量无法通过线性转换得到的</strong></li>
 <li>使用[sin cos]来表示 也就是 上面的公式，可以使用点积计算 得到位置差 如下公式，但是这种位置信息是无向的</li>
 </ol>
-<p><img src="/image%2014.png" alt="image.png"></p>
+<p><img src="/.com//image%2014.png" alt="image.png"></p>
 <p>位置编码嵌入过程是直接相加</p>
-<p><img src="/image%2015.png" alt="image.png"></p>
+<p><img src="/.com//image%2015.png" alt="image.png"></p>
 <p>这样设计 也满足多头注意力机制的多种子空间探索 各个子空间也包含位置信息</p>
-<h3 id="transformer-框架"><a href="#transformer-框架" class="headerlink" title="transformer 框架"></a>transformer 框架</h3><p><img src="/image%2016.png" alt="image.png"></p>
+<h3 id="transformer-框架"><a href="#transformer-框架" class="headerlink" title="transformer 框架"></a>transformer 框架</h3><p><img src="/.com//image%2016.png" alt="image.png"></p>
 <p>seq2seq  序列到序列任务</p>
 <p>可以实现翻译功能 </p>
 <p>编码器对序列向量化 —&gt;词向量—&gt;解码器 —&gt;结果</p>
 <p>其中编码器和解码器都是多层架构</p>
-<p><img src="/image%2017.png" alt="image.png"></p>
-<h3 id="Transformer-编码器"><a href="#Transformer-编码器" class="headerlink" title="Transformer - 编码器"></a>Transformer - 编码器</h3><p><img src="/image%2018.png" alt="image.png"></p>
+<p><img src="/.com//image%2017.png" alt="image.png"></p>
+<h3 id="Transformer-编码器"><a href="#Transformer-编码器" class="headerlink" title="Transformer - 编码器"></a>Transformer - 编码器</h3><p><img src="/.com//image%2018.png" alt="image.png"></p>
 <p>步骤分解： 将word2vec等方式得到的词向量 和 位置编码进行线性处理 实际上就是加起来</p>
 <p>处理过后—》文中使用的是多头注意力机制，分解为8个（常用个数）子空间，位置编码的方式也可以完美应用在各个子空间中，各个子空间使用自注意力机制，得到各个子空间的词向量信息，再进行拼接得到一个新的词向量  </p>
 <p><strong>残差网络</strong> 参考下图    </p>
 <p>在前向传播的过程中 不仅是当前的变换F， 还加入了原始的输入x  可以保留原有的信息。</p>
 <p>是在反向传播的过程中 ，不同于传统的链式法则计算，而是加上前几层的梯度信息，避免因为过多的网络层 导致 梯度信息消失或者爆炸，保证梯度稳定</p>
-<p><img src="/image%2019.png" alt="image.png"></p>
+<p><img src="/.com//image%2019.png" alt="image.png"></p>
 <p>可以参考下面的梯度传播公式处理</p>
-<p><img src="/image%2020.png" alt="image.png"></p>
+<p><img src="/.com//image%2020.png" alt="image.png"></p>
 <p> <strong>归一化（使用LayerNorm）</strong>，做标准化（避免梯度爆炸），得到了深粉色的 z1</p>
-<p><img src="/image%2021.png" alt="image.png"></p>
+<p><img src="/.com//image%2021.png" alt="image.png"></p>
 <p>分为BN和 LN<br>BN是计算不同样本中同一个维度的均值和方差<br>LN是计算同一个样本的均值和方差  </p>
 <p>然后根据均值和方差去做归一化</p>
 <p><strong>feedforward 前馈全连接层</strong>  实际上是线性变换之后套上一个激活函数（非线性函数），就可以实现弥合任意一种非线性连续函数（万能近似定理），下图公式中的σ函数就是非线性函数，a β y都是学习的线性参数。  Relu（w2(w1x+b1)+b2）</p>
-<p><img src="/image%2022.png" alt="image.png"></p>
+<p><img src="/.com//image%2022.png" alt="image.png"></p>
 <p>最后在使用 归一化得到一个新的 更好的 词向量</p>
 <h3 id="transformer解码器"><a href="#transformer解码器" class="headerlink" title="transformer解码器"></a>transformer解码器</h3><p>解码器在训练时 第一层 使用了mask 掩码机制 ，这是为了模拟实际任务过程中 一个单词一个单词的翻译任务。</p>
 <p>然后使用编码器的得到的词向量的k v矩阵和已有结果的Q矩阵实现交叉注意力机制，本质上是不同的q k v来源</p>
 <p>最后通过 linear + softmax 将维度转为词表维度 + 单词概率预测</p>
-<p><img src="/image%2023.png" alt="image.png"></p>
+<p><img src="/.com//image%2023.png" alt="image.png"></p>
 <p><strong>下游任务输出结果的示意图</strong></p>
-<p><img src="/image%2024.png" alt="image.png"></p>
+<p><img src="/.com//image%2024.png" alt="image.png"></p>
 <h2 id="为什么-Encoder-给予-Decoders-的是-K、V-矩阵"><a href="#为什么-Encoder-给予-Decoders-的是-K、V-矩阵" class="headerlink" title="为什么 Encoder 给予 Decoders 的是 K、V 矩阵"></a><strong>为什么 Encoder 给予 Decoders 的是 K、V 矩阵</strong></h2><p>Q矩阵的本质是查询 ，而encoder则是提供键值对（k,v） 让decode在翻译的时候 更准确的找到对翻译出当前的单词最有用的 K 和 V （encoder的输出就是两个K V矩阵 两个词向量吗）</p>
 <p>实际上encoder的结果就是一个含有语义信息和位置信息的特征向量 再对两个不同的 权重矩阵处理 就能得到 K 和 V矩阵 给到decoders</p>
 <p>之前的seq2seq框架  使用LSTM编码 LSTM解码生成<br>每一次生成一个新的词 都会考虑C的全部信息，很多信息对当前的词 并没有太大意义 </p>
@@ -214,7 +214,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/11/13/transformer2/11%2013%202aa1ea36e8d780608f90fd7c6861baa1/" data-id="cuidETyD-Ql6qrohWX_t3lsYj" data-title="&#39;transformer2&#39;" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/11/13/transformer2/11%2013%202aa1ea36e8d780608f90fd7c6861baa1/" data-id="cuidEEq26ojYSk-yU2qga1RPe" data-title="&#39;transformer2&#39;" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -228,9 +228,9 @@
 
 
   
-    <article id="post-transformer1/11 12 2a91ea36e8d780af81a4d3663e3b0e9b" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-transformer1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/11/12/transformer1/11%2012%202a91ea36e8d780af81a4d3663e3b0e9b/" class="article-date">
+    <a href="/2025/11/12/transformer1/" class="article-date">
   <time class="dt-published" datetime="2025-11-12T13:52:45.000Z" itemprop="datePublished">2025-11-12</time>
 </a>
     
@@ -242,7 +242,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/11/12/transformer1/11%2012%202a91ea36e8d780af81a4d3663e3b0e9b/">&#39;transformer1&#39;</a>
+      <a class="p-name article-title" href="/2025/11/12/transformer1/">&#39;transformer1&#39;</a>
     </h1>
   
 
@@ -258,18 +258,18 @@
 <p>微调用的最多</p>
 <h3 id="统计语言模型"><a href="#统计语言模型" class="headerlink" title="统计语言模型"></a>统计语言模型</h3><p>语言模型的两个主要问题：计算一句话的概率 计算下一个单词可能是什么</p>
 <p>统计+语言模型 本质上是条件概率，也就链式法则  去处理语言（人说的话）+模型（去完成两个任务）<br>不过首先要将句子拆分为一个一个的单词</p>
-<p><img src="/image.png" alt="image.png"></p>
+<p><img src="/.com//image.png" alt="image.png"></p>
 <p>又可以拆分为两个示例： 一个是预测  一个是判断<br>预测一句话后面的词是什么： 你今天要去___</p>
 <p>判断这个句子对不对： P(”你今天要去上班”)  和 P(”你今天要去火锅”)  哪一个概率大</p>
 <p>条件概率公式如下 ，count 就是统计的信息 出现次数</p>
-<p><img src="/image%201.png" alt="image.png"></p>
+<p><img src="/.com//image%201.png" alt="image.png"></p>
 <p>n元统计语言模型（马尔科夫链）</p>
 <p>正常一句话可能包括很多个单词   但是往往不需要很多的单词就可以判断出很多单词的概率<br>比如二元就是取两个词    上面的两句话分别可以近似 P(上班 | 去) 和  P(火锅 | 去)</p>
 <p>平滑策略<br>当分母的count() 为0，也就是分母为零时无意义 所以公式相对进行了处理，分子分母都加入不为0的正数，如下</p>
-<p><img src="/image%202.png" alt="image.png"></p>
+<p><img src="/.com//image%202.png" alt="image.png"></p>
 <h3 id="神经网络语言模型（独热编码-词向量-Word-Embedding-的起源）"><a href="#神经网络语言模型（独热编码-词向量-Word-Embedding-的起源）" class="headerlink" title="神经网络语言模型（独热编码+词向量 Word Embedding 的起源）"></a>神经网络语言模型（<strong>独热编码+词向量 Word Embedding 的起源</strong>）</h3><p>用神经网络解决语言模型的两个问题</p>
 <p>一开始解决 “预测下一个单词是什么”这一个系列的问题。   可以用一个最简单的感知机来处理</p>
-<p><img src="/image%203.png" alt="image.png"></p>
+<p><img src="/.com//image%203.png" alt="image.png"></p>
 <p>简单描述：</p>
 <ol>
 <li><p>假设其中输入为w1-w4，这里w1-w4指的是将单词进行独热编码</p>
@@ -289,7 +289,7 @@
 <p>得到词向量 词向量的维度 可以由Q矩阵控制<br>大大减小 由于独热编码带来的数据矩阵过大的问题</p>
 <p>得到了词向量（副产品） 还可以根据词向量去计算单词之间的相关性  从而用n元统计的方式 预测下一个单词对不对（也叫做下游任务）</p>
 <h3 id="word2vec模型"><a href="#word2vec模型" class="headerlink" title="word2vec模型"></a>word2vec模型</h3><p>模型直接为词向量服务 ，只为了得到词向量</p>
-<p><img src="/image%204.png" alt="image.png"></p>
+<p><img src="/.com//image%204.png" alt="image.png"></p>
 <p>分两大类：</p>
 <p>cbow: 一个老师 多个学生去学习Q矩阵  （给出上下文词，预测<strong>中间词</strong>）</p>
 <p>skip-gram: 多个老师 一个学生 去学习Q矩阵 （给出中间词，预测<strong>上下文词</strong>）</p>
@@ -299,11 +299,11 @@
 <p>缺点：无法有效区分多义词  多义词编码一致</p>
 <h2 id="预训练语言模型的下游任务改造（简介）"><a href="#预训练语言模型的下游任务改造（简介）" class="headerlink" title="预训练语言模型的下游任务改造（简介）"></a>预训练语言模型的下游任务改造（简介）</h2><p>word2vec是一个预训练模型</p>
 <p>现在处理一个问题 X(Q+S) ，给出一个回答Y(yes)</p>
-<p><img src="/image%205.png" alt="image.png"></p>
+<p><img src="/.com//image%205.png" alt="image.png"></p>
 <p>该模型的 embedding 实际上就可以用预训练好的word2vec模型带入 ，带入预训练好的Q矩阵得到词向量</p>
 <p>有两种方法 </p>
 <p>1.冻结 不改变Q矩阵<br>2.微调 随着任务的改变 进行Q矩阵的改变</p>
-<h3 id="ELMO模型（双向LSTM模型-解决词向量多义词问题）"><a href="#ELMO模型（双向LSTM模型-解决词向量多义词问题）" class="headerlink" title="ELMO模型（双向LSTM模型 解决词向量多义词问题）"></a>ELMO模型（双向LSTM模型 解决词向量多义词问题）</h3><p><img src="/image%206.png" alt="image.png"></p>
+<h3 id="ELMO模型（双向LSTM模型-解决词向量多义词问题）"><a href="#ELMO模型（双向LSTM模型-解决词向量多义词问题）" class="headerlink" title="ELMO模型（双向LSTM模型 解决词向量多义词问题）"></a>ELMO模型（双向LSTM模型 解决词向量多义词问题）</h3><p><img src="/.com//image%206.png" alt="image.png"></p>
 <p>模型使用双向lstm来获取上下文信息，E1+E2+E3层的信息融合。原有word2vec只考虑E1层，现在使用lstm传递 上下文信息，</p>
 <p>结果T1-TN 结果为词向量信息</p>
 <p>lstm相比rnn可以保持梯度不消失问题，时间序列上逐步迭代，但是无法并行，长期依赖。</p>
@@ -311,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/11/12/transformer1/11%2012%202a91ea36e8d780af81a4d3663e3b0e9b/" data-id="cuidXjto7bVFu8mBkQKoh--nZ" data-title="&#39;transformer1&#39;" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/11/12/transformer1/" data-id="cuid0EcK0gVcC1tI0gmbp2rK3" data-title="&#39;transformer1&#39;" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -374,7 +374,7 @@
           </li>
         
           <li>
-            <a href="/2025/11/12/transformer1/11%2012%202a91ea36e8d780af81a4d3663e3b0e9b/">&#39;transformer1&#39;</a>
+            <a href="/2025/11/12/transformer1/">&#39;transformer1&#39;</a>
           </li>
         
       </ul>
